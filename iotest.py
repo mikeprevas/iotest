@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 import waferslim.protocol
 from waferslim.converters import *
+import sys
+sys.path.append("/home/pi/pyfixtures/hardware/iotest")
 from ni_usb_6501 import *
 class Table(object):
-    def __init__(self, args):
+    def __init__(self, args=None):
         print ("table init %s" % (args))
         
     def beginTable(self):
@@ -20,13 +22,13 @@ class Table(object):
         print ("table type: %s %s" % (type(args), args))
 
 class IoTest(Table):
-    def __init__(self, args):
+    def __init__(self, args=None):
         Table.__init__(self, args)
         self.port = None
         self.pin = None
         self.dev = get_adapter()
-        if not self.dev:
-            raise Exception("No device found")
+#        if not self.dev:
+#            raise Exception("No device found")
 
         
     @convert_arg(to_type=int)

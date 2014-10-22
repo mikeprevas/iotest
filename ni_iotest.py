@@ -27,8 +27,12 @@ class IoTest(Table):
         self.port = None
         self.pin = None
         self.dev = get_adapter()
-#        if not self.dev:
-#            raise Exception("No device found")
+        if not self.dev:
+            raise Exception("No device found")
+
+        self.dev.set_io_mode(0, 0)
+        self.dev.set_io_mode(1,0xFF)
+        self.dev.set_io_mode(2, 0xFF)
 
         
     @convert_arg(to_type=int)

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import waferslim.protocol
 from waferslim.converters import *
-from NI_USB_6501.ni_usb_6501 import *
+from ni_usb_6501 import *
 class Table(object):
     def __init__(self, args):
         print ("table init %s" % (args))
@@ -24,8 +24,8 @@ class IoTest(Table):
         Table.__init__(self, args)
         self.port = None
         self.pin = None
-        dev = get_adapter()
-        if not dev:
+        self.dev = get_adapter()
+        if not self.dev:
             raise Exception("No device found")
 
         
@@ -45,11 +45,12 @@ class IoTest(Table):
         if self.pin == None and self.port == None:
             raise Exception("Pin and port must be set")
 
-        data = dev.read_port(0)
-        dev.writePort(0, data | (1 << self.pin))
+        data = self.dev.read_port(0)
+        self.dev.write_port(0, data | (1 << self.pin))
    
     def result(self):
-        return "1"
+        data = self.dev.read_port(0)
+        return str(data)
     
     
 if __name__ == "__main__":

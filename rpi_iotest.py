@@ -2,7 +2,8 @@
 import waferslim.protocol
 from waferslim.converters import *
 import sys
-sys.path.append("/home/pi/pyfixtures/hardware/iotest")
+import os
+sys.path.append(os.path.expanduser('~')+"/pyfixtures/hardware/iotest")
 from RPi.GPIO import gpio
 class IoTest(Table):
     def __init__(self, args=None):

@@ -1,0 +1,46 @@
+This is a simple testapplication using SLIM python backend and the reverse engineered NI USB 6501 driver found at https://github.com/schuetzm/ni-usb-6501 
+The backeend is running on raspberrypi. 
+
+The reason we user the reverse engineered driver is that official (nidaqmxbase) from National instrument is not working on ARM platforms and there is no official documentation of the "USB protocol" used on 6501.
+
+!define TEST_SYSTEM {slim}
+!path /home/pi/pyfixtures/hardware
+!define COMMAND_PATTERN {/usr/bin/python3 -m waferslim.server -v --syspath %p}
+
+!|import|
+|iotest.ni_iotest|
+
+port is 0 to 2
+pin is 0 to 7
+direction input or output
+write is only valid on output and should be 0 or 1 when input set it to -
+read value is what want from portpin 
+
+
+!|ni6501 io test|
+|port| pin | direction | write |read? |
+| 0 | 0 | in | - | 0 |
+| 0 | 1 | in | - | 0 |
+| 0 | 2 | in | - | 0 |
+| 0 | 3 | in | - | 0 |
+| 0 | 4 | in | - | 0 |
+| 0 | 5 | in | - | 0 |
+| 0 | 6 | in | - | 0 |
+| 0 | 7 | in | - | 1 |
+| 1 | 0 | in | -| 1 |
+| 1 | 1 | output | 1 | 1 |
+| 1 | 2 | output | 1 | 1 |
+| 1 | 3 | input | - | 1 |
+| 1 | 4 | in | -| 1 |
+| 1 | 5 | in | -| 1 |
+| 1 | 6 | in | -| 1 |
+| 1 | 7 | in | -| 1 |
+| 2 | 0 | in | -| 1 |
+| 2 | 1 | in | - | 1 |
+| 2 | 2 | in | -| 1 |
+| 2 | 3 | in | -| 1 |
+| 2 | 4 | in | -| 1 |
+| 2 | 5 | in | -| 1 |
+| 2 | 6 | in | -| 1 |
+| 2 | 7 | in | -| 1 |
+

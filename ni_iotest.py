@@ -55,15 +55,12 @@ class Ni6501IoTest(Table):
             pins &= ~(1 << self.pin) # mask out
             self.dev.write_port(self.port, (pins & (self.write << self.write)))
 
-        print("execute")
-
     # TODO use decorators 
     # write() 1 or 0 for pin
     def set_write(self, value):
         if self.pin == None and self.port == None:
             raise Exception("Pin and port must be set")
 
-        print(self.direction[self.port]) 
         # if input and value = '-' just return
         if value=='-' and (self.direction[self.port] & (1 << self.pin))== 0:
             return

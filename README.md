@@ -1,4 +1,4 @@
 iotest
 ======
 
-this is a fitness test app for gpio
+this is a fitnesse test app for gpio

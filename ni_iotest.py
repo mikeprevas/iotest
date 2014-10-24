@@ -6,7 +6,7 @@ sys.path.append("/home/pi/pyfixtures/hardware/iotest")
 from table import *
 from ni_usb_6501 import *
 
-class IoTest(Table):
+class Ni6501IoTest(Table):
     def __init__(self, args=None):
         Table.__init__(self, args)
         self.port = None
@@ -80,8 +80,6 @@ class IoTest(Table):
     def read(self):
         if self.pin == None and self.port == None:
             raise Exception("Pin and port must be set")
-        if (self.direction[self.port] & (1 << self.pin)):
-            return "-"
 
         data = self.dev.read_port(self.port) & (1 << self.pin) 
         return str(data >> self.pin)

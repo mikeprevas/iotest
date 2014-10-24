@@ -3,7 +3,7 @@ import waferslim.protocol
 from waferslim.converters import *
 import sys
 import os
-sys.path.append(os.path.expandpath("~")+"/pyfixtures/hardware/iotest")
+sys.path.append(os.path.expanduser("~")+"/pyfixtures/hardware/iotest")
 from table import *
 from ni_usb_6501 import *
 

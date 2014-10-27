@@ -18,6 +18,7 @@ class Ni6501IoTest(Table):
         if not self.dev:
             raise Exception("No device found")
 
+        # on start make sure all is set as inputs
         self.dev.set_io_mode(0x00, 0x00, 0x00)
 
     def setDirection(self, value):
@@ -64,6 +65,8 @@ class Ni6501IoTest(Table):
         # if input and value = '-' just return
         if value=='-' and (self.direction[self.port] & (1 << self.pin))== 0:
             return
+        if value!='-' and (self.direction[self.port] & (1 << self.pin))==0:
+            raise Exception("Must be output")
 
         try:
             print (value)
@@ -79,12 +82,17 @@ class Ni6501IoTest(Table):
         if self.pin == None and self.port == None:
             raise Exception("Pin and port must be set")
 
-        data = self.dev.read_port(self.port) & (1 << self.pin) 
+        data = self.dev.read_port(self.port)
+        print (hex(data))
+        data = data & (1 << self.pin)
         return str(data >> self.pin)
 
     
 if __name__ == "__main__":
-    t = IoTest("main")
+    t = Ni6501IoTest("main")
     t.setPort(0)
     t.setPin(0)
+    t.setDirection("output")
+    t.set_write(0)
     t.execute()
+    print (t.read())

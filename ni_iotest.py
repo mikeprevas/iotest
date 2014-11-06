@@ -93,6 +93,6 @@ if __name__ == "__main__":
     t.setPort(0)
     t.setPin(0)
     t.setDirection("output")
-    t.set_write(0)
+    t.set_write(1)
     t.execute()
     print (t.read())
